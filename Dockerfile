@@ -29,6 +29,10 @@ RUN echo "Installing... " \
 && wget -O - http://apt.itsyscom.com/conf/cgrates.gpg.key|apt-key add - \
 && wget http://apt.itsyscom.com/conf/cgrates.apt.list \
 && apt-get update && apt-get install -y cgrates redis-server git \
+&& go get github.com/cgrates/cgradmin \
+&& cgr-engine -config_dir /usr/share/cgrates/conf/samples/cgradmin/ \
+&& cd $GOPATH/src/github.com/cgrates/cgradmin \
+&& go run main.go
 
 # cleanup
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
